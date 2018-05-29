@@ -2,6 +2,20 @@ import React, { Component } from "react";
 import "./App.css";
 import InfoFeed from "./Components/InfoFeed";
 
+const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2
+  }
+});
+
 let axios = require("axios");
 
 class App extends Component {
@@ -58,6 +72,7 @@ class App extends Component {
     return (
       <div className="App">
         <input name="searchLocationBox" id="searchBox" type="text" />
+
         <select id="eventSelected">
           <option value="all">All</option>
           <option value="concerts">Concerts</option>

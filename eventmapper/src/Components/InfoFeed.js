@@ -57,20 +57,17 @@ class InfoFeed extends React.Component {
               <ListItemText
                 primary={event.title}
                 secondary={
-                  "Location: " +
-                  event.venue_address +
-                  ", " +
-                  event.city_name +
-                  ", " +
-                  event.region_abbr +
-                  " " +
-                  event.postal_code +
-                  "\n" +
-                  "Venue: " +
-                  event.venue_name +
-                  "\n" +
-                  "When: " +
-                  event.start_time
+                  <div>
+                    <b>Location: </b>
+                    {event.venue_address}, {event.city_name},{" "}
+                    {event.region_abbr} {event.postal_code}
+                    <br />
+                    <b>Venue: </b>
+                    {event.venue_name}
+                    <br />
+                    <b> When: </b>
+                    {event.start_time}
+                  </div>
                 }
               />
               <ListItemSecondaryAction>
