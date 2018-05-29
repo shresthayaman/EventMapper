@@ -16,7 +16,7 @@ const styles = theme => ({
   }
 });
 
-export default class InfoFeed extends React.Component {
+class InfoFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,12 +44,35 @@ export default class InfoFeed extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div>
+      <div className={classes.root}>
         <List>
           {this.props.apiData.map(event => (
-            <ListItem key={event} dense button className={classes.listItem}>
+            <ListItem
+              key={event.title}
+              dense
+              button
+              className={classes.listItem}
+            >
               <Avatar alt="Remy Sharp" />
-              <ListItemText primary={`${event.title}`} />
+              <ListItemText
+                primary={event.title}
+                secondary={
+                  "Location: " +
+                  event.venue_address +
+                  ", " +
+                  event.city_name +
+                  ", " +
+                  event.region_abbr +
+                  " " +
+                  event.postal_code +
+                  "\n" +
+                  "Venue: " +
+                  event.venue_name +
+                  "\n" +
+                  "When: " +
+                  event.start_time
+                }
+              />
               <ListItemSecondaryAction>
                 <Checkbox
                   onChange={this.handleToggle(event)}
@@ -62,23 +85,10 @@ export default class InfoFeed extends React.Component {
       </div>
     );
   }
-
-  //   return (
-  //     <div>
-  //       {this.props.apiData.map(event => {
-  //         return (
-  //           <ul>
-  //             Name: {event.title}
-  //             <li>
-  //               Location: {event.venue_address}, {event.city_name},{" "}
-  //               {event.region_abbr} {event.postal_code}
-  //             </li>
-  //             <li> Venue: {event.venue_name}</li>
-  //             <li> When: {event.start_time}</li>
-  //           </ul>
-  //         );
-  //       })}
-  //     </div>
-  //   );
-  // }
 }
+
+InfoFeed.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(InfoFeed);
