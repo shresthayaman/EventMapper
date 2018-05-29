@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchedData: {}
+      searchedData: []
     };
   }
 
@@ -41,7 +41,6 @@ class App extends Component {
     } else {
       url = url + "&category=" + eventType + "&location=" + location;
     }
-    console.log(url);
 
     axios.get(url).then(eventsData => {
       this.setState(
