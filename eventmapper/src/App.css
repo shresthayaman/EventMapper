@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
 }
 
 .App-logo {
@@ -22,7 +21,29 @@
   font-size: large;
 }
 
+.Header {
+  text-align: center;
+}
+
+.Search-bar {
+  text-align: center;
+}
+
+.Map {
+  display: inline-block;
+  height: auto;
+}
+
+.Feed {
+  vertical-align: top;
+  float: left;
+}
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

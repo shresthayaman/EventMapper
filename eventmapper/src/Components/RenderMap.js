@@ -10,17 +10,33 @@ const Map = ReactMapboxGl({
 });
 
 class RenderMap extends React.Component {
-  contructor(props) {
-    this.state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      longitude: -78.5,
+      latitude: 38.03,
+      zoom: 3
+    };
   }
   render() {
     return (
       <Map
         style="mapbox://styles/ianmccray/cjhs3nc19077q2sk81qpjrvwk"
-        containerStyle={{ width: "75vw", height: "100vh", left: "500px" }}
-        center={[-78.5, 38.03]}
-        zoom={[15]}
-      />
+        containerStyle={{ width: "78vw", height: "100vh", left: "0px" }}
+        center={[this.state.longitude, this.state.latitude]}
+        zoom={[this.state.zoom]}
+      >
+        {this.props.apiData2.map(event => {
+          return (
+            <Marker
+              coordinates={[event.longitude, event.latitude]}
+              anchor="bottom"
+            >
+              <img src={"http://maps.google.com/mapfiles/ms/icons/red.png"} />
+            </Marker>
+          );
+        })}
+      </Map>
     );
   }
 }

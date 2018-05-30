@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import InfoFeed from "./Components/InfoFeed";
 import RenderMap from "./Components/RenderMap";
+import mapmarker from "./mapmarker.png";
 
 const styles = theme => ({
   root: {
@@ -48,7 +49,7 @@ class App extends Component {
     }
 
     let url =
-      "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=50";
+      "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=30";
 
     //if user did not enter location, does not include location in API call; category is always inluded due to it being drop down option
     if (location === "") {
@@ -69,24 +70,50 @@ class App extends Component {
     });
   }
 
+  //Shows Results the moment the page starts up
+  componentDidMount() {
+    let url =
+      "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=30&category=all";
+
+    axios.get(url).then(eventsData => {
+      this.setState({
+        searchedData: eventsData.data.events.event //
+      });
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <input name="searchLocationBox" id="searchBox" type="text" />
+        <div className="Header">
+          <img src={mapmarker} className="mapmark" alt="maplogo" />
+          <h1> EventMapper </h1>
+          <p1> Enter a location and view the top events near you! </p1>
+          <br />
+          <p1>----------------------</p1>
+        </div>
+        <div className="Search-bar">
+          <input name="searchLocationBox" id="searchBox" type="text" />
 
-        <select id="eventSelected">
-          <option value="all">All</option>
-          <option value="concerts">Concerts</option>
-          <option value="festivals">Festivals</option>
-          <option value="comedy">Comedy</option>
-          <option value="family">Family</option>
-          <option value="nightLife">Night Life</option>
-          <option value="performingArts">Performing Arts</option>
-          <option value="sports">Sports</option>
-        </select>
-        <button onClick={event => this.handleSearch()}>Search</button>
-        <InfoFeed apiData={this.state.searchedData} />
-        <RenderMap />
+          <select id="eventSelected">
+            <option value="all">All</option>
+            <option value="concerts">Concerts</option>
+            <option value="festivals">Festivals</option>
+            <option value="comedy">Comedy</option>
+            <option value="family">Family</option>
+            <option value="nightLife">Night Life</option>
+            <option value="performingArts">Performing Arts</option>
+            <option value="sports">Sports</option>
+          </select>
+          <button onClick={event => this.handleSearch()}>Search</button>
+        </div>
+        <div className="Map">
+          <RenderMap apiData2={this.state.searchedData} />
+        </div>
+
+        <div className="Feed">
+          <InfoFeed apiData={this.state.searchedData} />
+        </div>
       </div>
     );
   }

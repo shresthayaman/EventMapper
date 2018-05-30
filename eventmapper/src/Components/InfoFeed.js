@@ -11,7 +11,7 @@ import Avatar from "@material-ui/core/Avatar";
 const styles = theme => ({
   root: {
     width: "100%",
-    maxWidth: 360,
+    maxWidth: 330,
     backgroundColor: theme.palette.background.paper
   }
 });
@@ -46,38 +46,40 @@ class InfoFeed extends React.Component {
     return (
       <div className={classes.root}>
         <List>
-          {this.props.apiData.map(event => (
-            <ListItem
-              key={event.title}
-              dense
-              button
-              className={classes.listItem}
-            >
-              <Avatar alt="Remy Sharp" />
-              <ListItemText
-                primary={event.title}
-                secondary={
-                  <div>
-                    <b>Location: </b>
-                    {event.venue_address}, {event.city_name},{" "}
-                    {event.region_abbr} {event.postal_code}
-                    <br />
-                    <b>Venue: </b>
-                    {event.venue_name}
-                    <br />
-                    <b> When: </b>
-                    {event.start_time}
-                  </div>
-                }
-              />
-              <ListItemSecondaryAction>
-                <Checkbox
-                  onChange={this.handleToggle(event)}
-                  checked={this.state.checked.indexOf(event) !== -1}
+          {this.props.apiData.map(event => {
+            return (
+              <ListItem
+                key={event.title}
+                dense
+                button
+                className={classes.listItem}
+              >
+                <Avatar alt="Remy Sharp" />
+                <ListItemText
+                  primary={event.title}
+                  secondary={
+                    <div>
+                      <b>Location: </b>
+                      {event.venue_address}, {event.city_name},{" "}
+                      {event.region_abbr} {event.postal_code}
+                      <br />
+                      <b>Venue: </b>
+                      {event.venue_name}
+                      <br />
+                      <b> When: </b>
+                      {event.start_time}
+                    </div>
+                  }
                 />
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    onChange={this.handleToggle(event)}
+                    checked={this.state.checked.indexOf(event) !== -1}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })}
         </List>
       </div>
     );
