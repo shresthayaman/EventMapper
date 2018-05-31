@@ -1,0 +1,10 @@
+.Map {
+  vertical-align: top;
+  display: inline-block;
+  height: auto;
+}
+
+.Feed {
+  vertical-align: top;
+  float: left;
+}
