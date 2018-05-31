@@ -8,6 +8,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
 
+import RenderMap from "./RenderMap";
+import "./InfoFeed.css";
+
 const styles = theme => ({
   root: {
     width: "100%",
@@ -20,7 +23,13 @@ class InfoFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: [1]
+      checked: [1],
+      currentApiData: this.props.apiData,
+      currentEvent: {
+        longitude: -78.5,
+        latitude: 38.03,
+        zoom: 3
+      }
     };
   }
 
@@ -35,52 +44,72 @@ class InfoFeed extends React.Component {
       newChecked.splice(currentIndex, 1);
     }
 
-    this.setState({
-      checked: newChecked
-    });
+    // this.setState({
+    //   checked: newChecked
+    // });
   };
+
+  handleClick(event) {
+    this.setState({
+      checked: this.state.checked,
+      currentApiData: this.props.apiData,
+      currentEvent: {
+        longitude: event.longitude,
+        latitude: event.latitude,
+        zoom: 16
+      }
+    });
+  }
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <List>
-          {this.props.apiData.map(event => {
-            return (
-              <ListItem
-                key={event.title}
-                dense
-                button
-                className={classes.listItem}
-              >
-                <Avatar alt="Remy Sharp" />
-                <ListItemText
-                  primary={event.title}
-                  secondary={
-                    <div>
-                      <b>Location: </b>
-                      {event.venue_address}, {event.city_name},{" "}
-                      {event.region_abbr} {event.postal_code}
-                      <br />
-                      <b>Venue: </b>
-                      {event.venue_name}
-                      <br />
-                      <b> When: </b>
-                      {event.start_time}
-                    </div>
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <Checkbox
-                    onChange={this.handleToggle(event)}
-                    checked={this.state.checked.indexOf(event) !== -1}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })}
-        </List>
+      <div>
+        <span>
+          <div className="Feed">
+            <List>
+              {this.props.apiData.map(event => {
+                return (
+                  <ListItem
+                    key={event.title}
+                    dense
+                    button
+                    className={classes.listItem}
+                    onClick={() => this.handleClick(event)}
+                  >
+                    <Avatar alt="Remy Sharp" />
+                    <ListItemText
+                      primary={event.title}
+                      secondary={
+                        <div>
+                          <b>Location: </b>
+                          {event.venue_address}, {event.city_name},{" "}
+                          {event.region_abbr} {event.postal_code}
+                          <br />
+                          <b>Venue: </b>
+                          {event.venue_name}
+                          <br />
+                          <b> When: </b>
+                          {event.start_time}
+                        </div>
+                      }
+                    />
+                    <ListItemSecondaryAction>
+                      <Checkbox
+                        onChange={this.handleToggle(event)}
+                        checked={this.state.checked.indexOf(event) !== -1}
+                      />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              })}
+            </List>
+          </div>
+          <div className="Map">
+            <RenderMap apiFeedData={this.state} />
+          </div>
+        </span>
       </div>
     );
   }

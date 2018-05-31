@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import InfoFeed from "./Components/InfoFeed";
-import RenderMap from "./Components/RenderMap";
 import mapmarker from "./mapmarker.png";
 
 const styles = theme => ({
@@ -61,7 +60,7 @@ class App extends Component {
             searchedData: eventsData.data.events.event //
           },
           () => {
-            console.log(this.state.searchedData);
+            //console.log(this.state.searchedData);
           }
         );
       });
@@ -120,10 +119,6 @@ class App extends Component {
             <option value="sports">Sports</option>
           </select>
           <button onClick={event => this.handleSearch()}>Search</button>
-        </div>
-
-        <div className="Map">
-          <RenderMap apiData2={this.state.searchedData} />
         </div>
 
         <div className="Feed">
