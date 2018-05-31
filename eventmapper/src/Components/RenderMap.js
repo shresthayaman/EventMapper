@@ -15,9 +15,12 @@ class RenderMap extends React.Component {
     this.state = {
       longitude: -78.5,
       latitude: 38.03,
-      zoom: 3
+      zoom: 3,
+      popupcoord: [-78.508, 38.0336],
+      popupname: "Name"
     };
   }
+
   render() {
     return (
       <Map

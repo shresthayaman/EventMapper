@@ -44,30 +44,30 @@ class App extends Component {
         document.getElementById("eventSelected").selectedIndex
       ].value;
       document.getElementById("searchBox").value = "";
+
+      let url =
+        "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=30";
+
+      //if user did not enter location, does not include location in API call; category is always inluded due to it being drop down option
+      if (location === "") {
+        url = url + "&category=" + eventType;
+      } else {
+        url = url + "&category=" + eventType + "&location=" + location;
+      }
+
+      axios.get(url).then(eventsData => {
+        this.setState(
+          {
+            searchedData: eventsData.data.events.event //
+          },
+          () => {
+            console.log(this.state.searchedData);
+          }
+        );
+      });
     } else {
       alert("Please enter something!");
     }
-
-    let url =
-      "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=30";
-
-    //if user did not enter location, does not include location in API call; category is always inluded due to it being drop down option
-    if (location === "") {
-      url = url + "&category=" + eventType;
-    } else {
-      url = url + "&category=" + eventType + "&location=" + location;
-    }
-
-    axios.get(url).then(eventsData => {
-      this.setState(
-        {
-          searchedData: eventsData.data.events.event //
-        },
-        () => {
-          console.log(this.state.searchedData);
-        }
-      );
-    });
   }
 
   //Shows Results the moment the page starts up
@@ -75,23 +75,37 @@ class App extends Component {
     let url =
       "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=30&category=all";
 
-    axios.get(url).then(eventsData => {
-      this.setState({
-        searchedData: eventsData.data.events.event //
-      });
-    });
+    axios
+      .get(url)
+      .then(eventsData => {
+        this.setState({
+          searchedData: eventsData.data.events.event //
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     return (
       <div className="App">
-        <div className="Header">
-          <img src={mapmarker} className="mapmark" alt="maplogo" />
+        <div className="Logo">
+          <img
+            className="MarkerImg"
+            src={mapmarker}
+            className="mapmark"
+            alt="maplogo"
+            width="70"
+            height="70"
+          />
           <h1> EventMapper </h1>
+        </div>
+
+        <div className="Header">
           <p1> Enter a location and view the top events near you! </p1>
           <br />
           <p1>----------------------</p1>
         </div>
+
         <div className="Search-bar">
           <input name="searchLocationBox" id="searchBox" type="text" />
 
@@ -107,6 +121,7 @@ class App extends Component {
           </select>
           <button onClick={event => this.handleSearch()}>Search</button>
         </div>
+
         <div className="Map">
           <RenderMap apiData2={this.state.searchedData} />
         </div>

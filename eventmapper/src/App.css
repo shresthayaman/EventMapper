@@ -20,9 +20,17 @@
 .App-intro {
   font-size: large;
 }
+.Logo {
+  display: inline-block;
+  text-align: left;
+}
+.MarkerImg {
+  padding-left: 20px;
+}
 
 .Header {
   text-align: center;
+  display: inline-block;
 }
 
 .Search-bar {
