@@ -1,9 +1,8 @@
 import React from "react";
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import ReactMapboxGl from "react-mapbox-gl";
 import { Marker } from "react-mapbox-gl";
 import { ZoomControl } from "react-mapbox-gl";
 import { Popup } from "react-mapbox-gl";
-import { Cluster } from "react-mapbox-gl";
 
 const Map = ReactMapboxGl({
   accessToken:

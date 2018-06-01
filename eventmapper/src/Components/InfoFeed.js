@@ -67,7 +67,7 @@ class InfoFeed extends React.Component {
 
     return (
       <div className="container">
-        <div className="Feed">
+        <div className="Feed" style={{ maxHeight: 940, overflow: "auto" }}>
           <List>
             {this.props.apiData.map(event => {
               return (

@@ -2,33 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import InfoFeed from "./Components/InfoFeed";
 import mapmarker from "./mapmarker.png";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import purple from "@material-ui/core/colors/purple";
-import {
-  TextField,
-  Button,
-  Select,
-  InputLabel,
-  FormControl,
-  MenuItem,
-  value
-} from "@material-ui/core";
-
-const styles = theme => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2
-  }
-});
+import { TextField, Button } from "@material-ui/core";
 
 let axios = require("axios");
 
@@ -117,7 +92,6 @@ class App extends Component {
           <img
             className="MarkerImg"
             src={mapmarker}
-            className="mapmark"
             alt="maplogo"
             width="62"
             height="62"
