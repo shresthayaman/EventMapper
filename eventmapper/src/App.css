@@ -1,43 +1,25 @@
 .App {
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
 .Logo {
-  background-color: #FFE4E1;
-  padding-left: 75px;
-  padding-top: 20px;
-  padding-bottom: 10px;
-}
-.MarkerImg {
-  
+  background-color: #ffe4e1;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
-.Header {
-  padding-left: 75px;
-  padding-top: 10px;
-  background-color: #FFE4E1;
+.Header1 {
+  padding-left: 20px;
 }
 
 .Search-bar {
+  background-color: rgba(240, 224, 8, 0.87);
   text-align: center;
+}
+
+.LoadingBar {
+  margin: auto;
+  width: 50%;
 }
 
 .Map {
@@ -45,13 +27,19 @@
   height: auto;
 }
 
+#searchButton {
+  background-color: #ffe4e1;
+}
 #eventSelected {
-  background-color: #AAA;
-
+  background-color: #ffe4e1;
 }
 
-.Feed {
+.MapFeed {
   vertical-align: top;
   float: left;
+}
 
+.loadingCircle {
+  display: flex;
+  justify-content: center;
 }

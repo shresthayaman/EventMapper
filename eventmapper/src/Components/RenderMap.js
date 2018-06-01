@@ -40,28 +40,30 @@ class RenderMap extends React.Component {
     return (
       <Map
         style="mapbox://styles/ianmccray/cjhs3nc19077q2sk81qpjrvwk"
-        containerStyle={{ width: "65vw", height: "100vh", left: "0px" }}
+        containerStyle={{ width: "68vw", height: "100vh", left: "0px" }}
         center={[this.state.longitude, this.state.latitude]}
         zoom={[this.state.zoom]}
       >
         {this.props.apiFeedData.currentApiData.map(event => {
           return (
             <div>
-            <Marker
-              coordinates={[event.longitude, event.latitude]}
-              anchor="bottom"
-              onClick={(e) => {
-                this.setState({title: event.title});
-                <Popup coordinates={[event.longitude, event.latitude]}> <p1> {this.state.title} </p1> </Popup>
-              }}
-            >
-              <img src={"http://maps.google.com/mapfiles/ms/icons/red.png"} />
-            </Marker>
-  
+              <Marker
+                coordinates={[event.longitude, event.latitude]}
+                anchor="bottom"
+                onClick={e => {
+                  this.setState({ title: event.title });
+                  <Popup coordinates={[event.longitude, event.latitude]}>
+                    {" "}
+                    <p1> {this.state.title} </p1>{" "}
+                  </Popup>;
+                }}
+              >
+                <img src={"http://maps.google.com/mapfiles/ms/icons/red.png"} />
+              </Marker>
             </div>
           );
         })}
-        <ZoomControl/>
+        <ZoomControl />
       </Map>
     );
   }

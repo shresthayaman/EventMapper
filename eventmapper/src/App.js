@@ -2,6 +2,19 @@ import React, { Component } from "react";
 import "./App.css";
 import InfoFeed from "./Components/InfoFeed";
 import mapmarker from "./mapmarker.png";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import purple from "@material-ui/core/colors/purple";
+import {
+  TextField,
+  Button,
+  Select,
+  InputLabel,
+  FormControl,
+  MenuItem,
+  value
+} from "@material-ui/core";
 
 const styles = theme => ({
   root: {
@@ -23,7 +36,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchedData: []
+      searchedData: [],
+      isLoading: true
     };
   }
 
@@ -31,6 +45,9 @@ class App extends Component {
     //if the search bar has some value in it after the search button has been pressed,
     //then set the location to the value in search bar
     //do the same thing for eventType
+    this.setState({
+      isLoading: true
+    });
     let location = "";
     let eventType = "";
     if (!(document.getElementById("searchBox").value === "")) {
@@ -45,7 +62,7 @@ class App extends Component {
       document.getElementById("searchBox").value = "";
 
       let url =
-        "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=30";
+        "http://api.eventful.com/json/events/search?app_key=CgTTmL6NkQGG3sKn&sort_order=popularity&within=30";
 
       //if user did not enter location, does not include location in API call; category is always inluded due to it being drop down option
       if (location === "") {
@@ -54,16 +71,23 @@ class App extends Component {
         url = url + "&category=" + eventType + "&location=" + location;
       }
 
-      axios.get(url).then(eventsData => {
-        this.setState(
-          {
-            searchedData: eventsData.data.events.event //
-          },
-          () => {
-            //console.log(this.state.searchedData);
-          }
-        );
-      });
+      axios
+        .get(url)
+        .then(eventsData => {
+          this.setState(
+            {
+              searchedData: eventsData.data.events.event || [],
+              isLoading: false
+            },
+            () => {
+              //console.log(this.state.searchedData);
+            }
+          );
+        })
+        .catch(error => {
+          alert("There was an error loading your request");
+          console.log(error);
+        });
     } else {
       alert("Please enter something!");
     }
@@ -77,8 +101,10 @@ class App extends Component {
     axios
       .get(url)
       .then(eventsData => {
+        console.log("It has loaded");
         this.setState({
-          searchedData: eventsData.data.events.event //
+          searchedData: eventsData.data.events.event,
+          isLoading: false
         });
       })
       .catch(err => console.log(err));
@@ -93,22 +119,23 @@ class App extends Component {
             src={mapmarker}
             className="mapmark"
             alt="maplogo"
-            width="70"
-            height="70"
+            width="62"
+            height="62"
           />
-          <h1> EventMapper </h1>
-        </div>
-
-        <div className="Header">
-          <p1> Enter a location and view the top events near you! </p1>
-          <br />
-          <p1>----------------------</p1>
+          <div className="Header1">
+            <h1> Event Mapper </h1>
+          </div>
         </div>
 
         <div className="Search-bar">
-          <input name="searchLocationBox" id="searchBox" type="text" />
+          <TextField
+            name="searchLocationBox"
+            id="searchBox"
+            placeholder="Enter a location"
+            type="text"
+          />
 
-          <select id="eventSelected">
+          <select id="eventSelected" style={{ width: "200px" }}>
             <option value="all">All</option>
             <option value="concerts">Concerts</option>
             <option value="festivals">Festivals</option>
@@ -118,12 +145,22 @@ class App extends Component {
             <option value="performingArts">Performing Arts</option>
             <option value="sports">Sports</option>
           </select>
-          <button onClick={event => this.handleSearch()}>Search</button>
-        </div>
 
-        <div className="Feed">
-          <InfoFeed apiData={this.state.searchedData} />
+          <Button id="searchButton" onClick={event => this.handleSearch()}>
+            Search
+          </Button>
         </div>
+        {/* Code for loading bar when making API call */}
+
+        {this.state.isLoading ? (
+          <div className="loadingCircle">
+            <CircularProgress size={50} />
+          </div>
+        ) : (
+          <div className="MapFeed">
+            <InfoFeed apiData={this.state.searchedData} />
+          </div>
+        )}
       </div>
     );
   }

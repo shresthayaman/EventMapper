@@ -14,7 +14,7 @@ import "./InfoFeed.css";
 const styles = theme => ({
   root: {
     width: "100%",
-    maxWidth: 100,
+    maxWidth: 200,
     backgroundColor: theme.palette.background.paper
   }
 });
@@ -33,6 +33,7 @@ class InfoFeed extends React.Component {
     };
   }
 
+  componentDidMount() {}
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -65,52 +66,50 @@ class InfoFeed extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div>
-        <span>
-          <div className="Feed">
-            <List>
-              {this.props.apiData.map(event => {
-                return (
-                  <ListItem
-                    key={event.title}
+      <div className="container">
+        <div className="Feed">
+          <List>
+            {this.props.apiData.map(event => {
+              return (
+                <ListItem
+                  key={event.title}
+                  dense
+                  button
+                  className={classes.listItem}
+                  onClick={() => this.handleClick(event)}
+                >
+                  <Avatar alt="Remy Sharp" />
+                  <ListItemText
                     dense
-                    button
-                    className={classes.listItem}
-                    onClick={() => this.handleClick(event)}
-                  >
-                    <Avatar alt="Remy Sharp" />
-                    <ListItemText
-                      dense
-                      primary={event.title}
-                      secondary={
-                        <div>
-                          <b>Location: </b>
-                          {event.venue_address}, {event.city_name},{" "}
-                          {event.region_abbr} {event.postal_code}
-                          <br />
-                          <b>Venue: </b>
-                          {event.venue_name}
-                          <br />
-                          <b> When: </b>
-                          {event.start_time}
-                        </div>
-                      }
+                    primary={event.title}
+                    secondary={
+                      <div>
+                        <b>Location: </b>
+                        {event.venue_address}, {event.city_name},{" "}
+                        {event.region_abbr} {event.postal_code}
+                        <br />
+                        <b>Venue: </b>
+                        {event.venue_name}
+                        <br />
+                        <b> When: </b>
+                        {event.start_time}
+                      </div>
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <Checkbox
+                      onChange={this.handleToggle(event)}
+                      checked={this.state.checked.indexOf(event) !== -1}
                     />
-                    <ListItemSecondaryAction>
-                      <Checkbox
-                        onChange={this.handleToggle(event)}
-                        checked={this.state.checked.indexOf(event) !== -1}
-                      />
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </div>
-          <div className="Map">
-            <RenderMap apiFeedData={this.state} />
-          </div>
-        </span>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              );
+            })}
+          </List>
+        </div>
+        <div className="Map">
+          <RenderMap apiFeedData={this.state} />
+        </div>
       </div>
     );
   }
