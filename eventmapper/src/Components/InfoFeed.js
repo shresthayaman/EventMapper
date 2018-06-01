@@ -14,7 +14,7 @@ import "./InfoFeed.css";
 const styles = theme => ({
   root: {
     width: "100%",
-    maxWidth: 330,
+    maxWidth: 100,
     backgroundColor: theme.palette.background.paper
   }
 });
@@ -80,6 +80,7 @@ class InfoFeed extends React.Component {
                   >
                     <Avatar alt="Remy Sharp" />
                     <ListItemText
+                      dense
                       primary={event.title}
                       secondary={
                         <div>

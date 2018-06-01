@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import { Marker } from "react-mapbox-gl";
+import { ZoomControl } from "react-mapbox-gl";
 import { Popup } from "react-mapbox-gl";
 import { Cluster } from "react-mapbox-gl";
 
@@ -15,7 +16,8 @@ class RenderMap extends React.Component {
     this.state = {
       longitude: this.props.apiFeedData.currentEvent.longitude,
       latitude: this.props.apiFeedData.currentEvent.latitude,
-      zoom: this.props.apiFeedData.currentEvent.zoom
+      zoom: this.props.apiFeedData.currentEvent.zoom,
+      title: this.props.apiFeedData.currentEvent.title
     };
   }
 
@@ -44,14 +46,22 @@ class RenderMap extends React.Component {
       >
         {this.props.apiFeedData.currentApiData.map(event => {
           return (
+            <div>
             <Marker
               coordinates={[event.longitude, event.latitude]}
               anchor="bottom"
+              onClick={(e) => {
+                this.setState({title: event.title});
+                <Popup coordinates={[event.longitude, event.latitude]}> <p1> {this.state.title} </p1> </Popup>
+              }}
             >
               <img src={"http://maps.google.com/mapfiles/ms/icons/red.png"} />
             </Marker>
+  
+            </div>
           );
         })}
+        <ZoomControl/>
       </Map>
     );
   }
