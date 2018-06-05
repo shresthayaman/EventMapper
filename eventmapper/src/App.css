@@ -2,7 +2,6 @@
 }
 
 .Logo {
-  background-color: #ffe4e1;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -13,7 +12,7 @@
 }
 
 .Search-bar {
-  background-color: rgba(240, 224, 8, 0.87);
+  background-color: #ffe4e1;
   text-align: center;
 }
 
@@ -28,7 +27,7 @@
 }
 
 #searchButton {
-  background-color: #fd3807;
+  background-color: #cc7f68;
 }
 #eventSelected {
   background-color: #ffe4e1;

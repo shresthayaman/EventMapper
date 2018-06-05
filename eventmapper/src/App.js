@@ -7,6 +7,8 @@ import { TextField, Button } from "@material-ui/core";
 
 let axios = require("axios");
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,9 @@ class App extends Component {
       document.getElementById("searchBox").value = "";
 
       let url =
-        "http://api.eventful.com/json/events/search?app_key=CgTTmL6NkQGG3sKn&sort_order=popularity&within=30";
+        "http://api.eventful.com/json/events/search?app_key=" +
+        API_KEY +
+        "&sort_order=popularity&within=30";
 
       //if user did not enter location, does not include location in API call; category is always inluded due to it being drop down option
       if (location === "") {
@@ -71,7 +75,9 @@ class App extends Component {
   //Shows Results the moment the page starts up
   componentDidMount() {
     let url =
-      "http://api.eventful.com/json/events/search?app_key=mqZ83cvtXdwBj382&sort_order=popularity&within=30&category=all";
+      "http://api.eventful.com/json/events/search?app_key=" +
+      API_KEY +
+      "&sort_order=popularity&within=30&category=all";
 
     axios
       .get(url)
@@ -86,6 +92,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <div className="Logo">

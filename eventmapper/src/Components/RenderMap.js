@@ -36,8 +36,6 @@ class RenderMap extends React.Component {
     //   long = this
     // })
 
-    console.log(this.state);
-
     return (
       <Map
         style="mapbox://styles/ianmccray/cjhs3nc19077q2sk81qpjrvwk"
